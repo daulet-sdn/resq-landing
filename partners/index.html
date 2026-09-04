@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resq для бизнеса — продавайте остатки вместо списания</title>
+<meta name="description" content="Resq подключает кафе, пекарни и магазины к покупателям, которые забирают непроданную за день еду. Без интеграций, без абонплаты, комиссия только с проданных наборов.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%2312a150%22%2F%3E%3Cpath%20d%3D%22M21.32%2012.27A6.5%206.5%200%201%201%2017.13%209.6%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M21.16%2010.65%2016.09%2011.78%2017.33%207.14z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
+
+<!-- Соцсети. og:image и og:url лучше сделать абсолютными (https://домен/...) —
+     Telegram и WhatsApp надёжнее подхватывают абсолютные ссылки. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Resq">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="kk_KZ">
+<meta property="og:title" content="Resq для бизнеса — продавайте остатки вместо списания">
+<meta property="og:description" content="Подключите заведение к Resq: вечерние остатки становятся выручкой. Без интеграций, без абонплаты, комиссия только с проданных наборов.">
+<meta property="og:image" content="../og-partners.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Resq">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Resq для бизнеса — продавайте остатки вместо списания">
+<meta name="twitter:description" content="Подключите заведение к Resq: вечерние остатки становятся выручкой. Без интеграций, без абонплаты, комиссия только с проданных наборов.">
+<meta name="twitter:image" content="../og-partners.png">
+<meta name="theme-color" content="#12a150">
+
+<style>
+/* ============================================================
+   Resq — shared landing styles
+   Used by:  /index.html (customers)  ·  /partners/index.html
+   Single stylesheet on purpose: no build step, no drift.
+   ============================================================ */
+
+:root{
+  --ink:#0d1a13;
+  --ink-2:#41564a;
+  --ink-3:#8a7f6b;
+  --line:#e3ded2;
+  --line-dark:rgba(255,255,255,.14);
+  --cream:#fbf8f2;
+  --card:#ffffff;
+  --green:#12a150;
+  --green-dk:#0a6b35;
+  --green-soft:#e7f6ec;
+  --green-lite:#5fdc97;
+  --amber:#f27d21;
+  --amber-soft:#fdefe1;
+  --amber-ink:#a2500c;
+  --radius:18px;
+  --shadow:0 1px 2px rgba(13,26,19,.05), 0 12px 32px -12px rgba(13,26,19,.16);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:88px 0}
+.tight{padding-top:0}
+
+/* ---------------- header ---------------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,248,242,.86);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.bar{display:flex;align-items:center;gap:16px;height:66px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.logo .mark{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:var(--green);color:#fff;font-size:16px;
+}
+.logo .tag{
+  font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);border-left:1px solid var(--line);padding-left:9px;margin-left:2px;
+}
+nav{margin-left:auto;display:flex;align-items:center;gap:26px}
+nav a.nl{text-decoration:none;color:var(--ink-2);font-size:14.5px;font-weight:500}
+nav a.nl:hover{color:var(--ink)}
+@media (max-width:820px){ nav a.nl{display:none} nav{gap:12px} }
+
+/* header CTA has a short label on narrow screens */
+.only-narrow{display:none}
+@media (max-width:600px){
+  .only-wide{display:none}
+  .only-narrow{display:inline}
+  .logo .tag{display:none}
+  .bar{gap:10px}
+}
+@media (max-width:400px){
+  .bar{gap:8px}
+  .btn-sm{padding:10px 12px}
+  .lang button{padding:7px 9px}
+}
+
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff}
+.lang button{
+  border:0;background:transparent;cursor:pointer;font:600 12.5px/1 inherit;
+  color:var(--ink-2);padding:7px 12px;border-radius:999px;letter-spacing:.04em;
+}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+/* ---------------- buttons ---------------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;
+  font:600 15px/1 inherit;padding:13px 20px;border-radius:12px;border:1px solid transparent;
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 8px 20px -8px rgba(18,161,80,.7)}
+.btn-primary:hover{background:var(--green-dk)}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:#c9c2b2}
+.btn-ghost-dark{background:transparent;border-color:rgba(255,255,255,.28);color:#fff}
+.btn-ghost-dark:hover{border-color:rgba(255,255,255,.6)}
+.btn-sm{padding:10px 16px;font-size:14px}
+
+/* ---------------- hero ---------------- */
+.hero{padding:76px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+@media (max-width:900px){ .hero-grid{grid-template-columns:1fr;gap:40px} }
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;background:var(--amber-soft);color:var(--amber-ink);
+  border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;margin-bottom:22px;
+}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+h1{
+  font-size:clamp(28px,5.4vw,60px);line-height:1.05;letter-spacing:-.035em;
+  margin:0 0 20px;font-weight:800;
+  overflow-wrap:break-word;   /* long Kazakh compounds must not push the page wide */
+}
+h1 .hl{color:var(--green)}
+@media (min-width:700px){ h1 .hl{white-space:nowrap} }
+.lede{font-size:clamp(17px,2vw,19.5px);color:var(--ink-2);margin:0 0 30px;max-width:52ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.note{font-size:13.5px;color:var(--ink-2);margin-top:16px}
+
+/* dark hero variant — used on the partner page */
+.hero-dark{background:var(--ink);color:#f4f1e9;padding-bottom:96px}
+.hero-dark h1{color:#fff}
+.hero-dark h1 .hl{color:var(--green-lite)}
+.hero-dark .lede{color:#a9bdb0}
+.hero-dark .note{color:#c2d3c8}
+.hero-dark .pill{background:rgba(95,220,151,.14);color:var(--green-lite)}
+.hero-dark .pill .dot{background:var(--green-lite)}
+
+/* ---------------- QR card ---------------- */
+.qr-card{
+  background:var(--card);border:1px solid var(--line);border-radius:26px;
+  padding:28px;box-shadow:var(--shadow);text-align:center;position:relative;color:var(--ink);
+}
+.qr-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:27px;pointer-events:none;
+  background:linear-gradient(160deg,rgba(18,161,80,.14),transparent 42%);
+}
+.qr-frame{
+  width:212px;height:212px;margin:0 auto 18px;padding:6px;border-radius:18px;
+  background:#fff;border:1px solid var(--line);position:relative;
+}
+.qr-frame svg{display:block;width:100%;height:100%}
+.qr-frame .badge{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:12px;background:#fff;
+  display:grid;place-items:center;box-shadow:0 0 0 5px #fff;
+}
+.qr-frame .badge svg{width:26px;height:26px}
+.qr-title{font-weight:700;font-size:17px;margin:0 0 6px;letter-spacing:-.01em}
+.qr-sub{font-size:14px;color:var(--ink-2);margin:0 0 18px}
+.qr-handle{
+  display:inline-flex;align-items:center;gap:7px;font:600 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:var(--green-soft);color:var(--green-dk);padding:9px 14px;border-radius:10px;text-decoration:none;
+}
+.mock-tag{margin-top:16px;font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+
+/* ---------------- stats ---------------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:64px;
+}
+.stat{background:var(--cream);padding:24px 20px;text-align:center}
+.stat b{display:block;font-size:30px;letter-spacing:-.03em;line-height:1.1}
+.stat span{font-size:13.5px;color:var(--ink-2)}
+.stat .unit{font-size:18px}
+@media (max-width:700px){ .stats{grid-template-columns:repeat(2,1fr)} }
+
+/* ---------------- section headings ---------------- */
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green);margin:0 0 12px}
+h2{font-size:clamp(28px,3.6vw,40px);line-height:1.12;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.sub{color:var(--ink-2);font-size:17px;margin:0 0 44px;max-width:56ch}
+
+/* ---------------- steps ---------------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.steps.four{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1000px){ .steps.four{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:860px){ .steps,.steps.four{grid-template-columns:1fr} }
+.step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.step .num{
+  width:34px;height:34px;border-radius:10px;background:var(--green-soft);color:var(--green-dk);
+  display:grid;place-items:center;font-weight:800;font-size:15px;margin-bottom:16px;
+}
+.step h3{margin:0 0 8px;font-size:18px;letter-spacing:-.015em}
+.step p{margin:0;color:var(--ink-2);font-size:15px}
+
+/* ---------------- offer cards (customer page) ---------------- */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:860px){ .offers{grid-template-columns:1fr} }
+.offer{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.offer .thumb{height:120px;display:grid;place-items:center;font-size:44px}
+.offer .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.offer .shop{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.offer .meta{font-size:13.5px;color:var(--ink-2)}
+.offer .price{margin-top:auto;padding-top:14px;display:flex;align-items:baseline;gap:9px}
+.offer .now{font-weight:800;font-size:21px;letter-spacing:-.02em}
+.offer .was{font-size:14px;color:#9c9384;text-decoration:line-through}
+.offer .save{
+  margin-left:auto;font-size:12.5px;font-weight:700;color:var(--green-dk);
+  background:var(--green-soft);padding:5px 9px;border-radius:7px;
+}
+
+/* ---------------- cross-link band ---------------- */
+.band{
+  display:flex;flex-wrap:wrap;align-items:center;gap:18px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--card);padding:24px 28px;
+}
+.band .ico{
+  width:42px;height:42px;border-radius:12px;background:var(--green-soft);
+  display:grid;place-items:center;font-size:20px;flex:none;
+}
+.band .txt{flex:1 1 320px}
+.band b{display:block;font-size:17px;letter-spacing:-.015em;margin-bottom:3px}
+.band .txt span{font-size:14.5px;color:var(--ink-2)}
+.band .btn{margin-left:auto}
+
+/* ---------------- value grid (partner page) ---------------- */
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:820px){ .values{grid-template-columns:1fr} }
+.value{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+.value .ico{
+  width:40px;height:40px;border-radius:11px;background:var(--amber-soft);
+  display:grid;place-items:center;font-size:19px;margin-bottom:16px;
+}
+.value h3{margin:0 0 8px;font-size:19px;letter-spacing:-.02em}
+.value p{margin:0;color:var(--ink-2);font-size:15.5px}
+
+/* ---------------- terms strip (partner page) ---------------- */
+.terms{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+}
+@media (max-width:820px){ .terms{grid-template-columns:1fr} }
+.term{background:var(--card);padding:26px 28px}
+.term b{display:block;font-size:17px;margin-bottom:6px;letter-spacing:-.015em}
+.term span{font-size:14.5px;color:var(--ink-2)}
+
+/* ---------------- FAQ ---------------- */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:22px 40px 22px 0;position:relative;
+  font-weight:650;font-size:17px;letter-spacing:-.015em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font-size:22px;font-weight:400;color:var(--ink-2);line-height:1;
+}
+.faq details[open] summary::after{content:"−"}
+.faq .answer{margin:0;padding:0 60px 24px 0;color:var(--ink-2);font-size:15.5px}
+
+/* ---------------- closing CTA ---------------- */
+.closer{
+  background:var(--ink);color:#f4f1e9;border-radius:28px;padding:56px;
+  display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;
+}
+@media (max-width:700px){ .closer{padding:36px 26px;border-radius:22px} }
+.closer h2{color:#fff;margin:0 0 10px}
+.closer p{margin:0;color:#a9bdb0;font-size:16.5px;max-width:46ch}
+
+/* ---------------- footer ---------------- */
+footer{border-top:1px solid var(--line);padding:34px 0;font-size:14px;color:var(--ink-2)}
+.frow{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.frow a{text-decoration:none}
+.frow a:hover{color:var(--ink)}
+</style>
+</head>
+<body data-title-ru="Resq для бизнеса — продавайте остатки вместо списания" data-title-kz="Resq бизнеске — қалдықты есептен шығармай сатыңыз">
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="../index.html"><span class="mark">↻</span>resq<span class="tag" data-ru="для бизнеса" data-kz="бизнеске">для бизнеса</span></a>
+    <nav>
+      <a class="nl" href="#why" data-ru="Зачем это вам" data-kz="Сізге не үшін">Зачем это вам</a>
+      <a class="nl" href="#how" data-ru="Как это работает" data-kz="Қалай жұмыс істейді">Как это работает</a>
+      <a class="nl" href="#terms" data-ru="Условия" data-kz="Шарттар">Условия</a>
+      <a class="nl" href="#faq" data-ru="Вопросы" data-kz="Сұрақтар">Вопросы</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="kz" aria-pressed="false">ҚАЗ</button>
+        <button type="button" data-lang="ru" aria-pressed="true">РУС</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://t.me/resq_bot?start=partner">
+        <span class="only-wide" data-ru="Подключить заведение" data-kz="Мекемені қосу">Подключить заведение</span>
+        <span class="only-narrow" data-ru="Заявка" data-kz="Өтінім">Заявка</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero-dark">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="pill"><span class="dot"></span><span data-ru="Набираем первые заведения в Алматы" data-kz="Алматыдағы алғашқы мекемелерді жинап жатырмыз">Набираем первые заведения в Алматы</span></div>
+        <h1><span data-ru="Продавайте то," data-kz="Есептен шығаратыныңызды">Продавайте то,</span> <span class="hl" data-ru="что списали бы" data-kz="сатыңыз">что списали бы</span></h1>
+        <p class="lede" data-ru="Каждый вечер часть выпечки, салатов и готовых блюд уходит в мусор. Resq превращает их в выручку и приводит гостей, которые иначе бы к вам не зашли."
+           data-kz="Күн сайын кешке тоқаштың, салаттың және дайын тағамның бір бөлігі қоқысқа кетеді. Resq оларды табысқа айналдырып, әйтпесе келмейтін қонақтарды әкеледі.">
+          Каждый вечер часть выпечки, салатов и готовых блюд уходит в мусор. Resq превращает их в выручку и приводит гостей, которые иначе бы к вам не зашли.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://t.me/resq_bot?start=partner">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.1 1.5 11.6c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.5z"/></svg>
+            <span data-ru="Оставить заявку" data-kz="Өтінім қалдыру">Оставить заявку</span>
+          </a>
+          <a class="btn btn-ghost-dark" href="#how" data-ru="Сначала посмотреть, как устроено" data-kz="Алдымен қалай екенін көру">Сначала посмотреть, как устроено</a>
+        </div>
+        <p class="note" data-ru="Подключение бесплатное. Комиссия — только с проданных наборов."
+           data-kz="Қосылу тегін. Комиссия — тек сатылған жинақтардан.">
+          Подключение бесплатное. Комиссия — только с проданных наборов.
+        </p>
+      </div>
+
+      <!-- QR → t.me/resq_bot?start=partner -->
+      <div class="qr-card">
+        <div class="qr-frame">
+          <svg viewBox="0 0 45 45" shape-rendering="crispEdges" role="img" aria-label="QR: t.me/resq_bot?start=partner">
+            <rect width="45" height="45" fill="#fff"/>
+            <path fill="#0d1a13" d="M4 4h7v1h-7zM12 4h5v1h-5zM18 4h1v1h-1zM20 4h2v1h-2zM23 4h1v1h-1zM25 4h1v1h-1zM28 4h1v1h-1zM30 4h2v1h-2zM34 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM16 5h2v1h-2zM20 5h5v1h-5zM28 5h2v1h-2zM31 5h2v1h-2zM34 5h1v1h-1zM40 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM15 6h1v1h-1zM19 6h5v1h-5zM25 6h1v1h-1zM30 6h2v1h-2zM34 6h1v1h-1zM36 6h3v1h-3zM40 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM18 7h2v1h-2zM21 7h2v1h-2zM26 7h3v1h-3zM30 7h1v1h-1zM34 7h1v1h-1zM36 7h3v1h-3zM40 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM13 8h3v1h-3zM24 8h1v1h-1zM28 8h1v1h-1zM30 8h3v1h-3zM34 8h1v1h-1zM36 8h3v1h-3zM40 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM14 9h1v1h-1zM17 9h1v1h-1zM20 9h1v1h-1zM23 9h3v1h-3zM27 9h1v1h-1zM29 9h1v1h-1zM31 9h2v1h-2zM34 9h1v1h-1zM40 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM32 10h1v1h-1zM34 10h7v1h-7zM13 11h1v1h-1zM15 11h2v1h-2zM18 11h3v1h-3zM25 11h1v1h-1zM29 11h2v1h-2zM32 11h1v1h-1zM6 12h1v1h-1zM8 12h3v1h-3zM12 12h1v1h-1zM14 12h1v1h-1zM17 12h4v1h-4zM22 12h1v1h-1zM28 12h1v1h-1zM30 12h4v1h-4zM37 12h1v1h-1zM40 12h1v1h-1zM4 13h2v1h-2zM14 13h1v1h-1zM17 13h2v1h-2zM22 13h2v1h-2zM26 13h1v1h-1zM28 13h1v1h-1zM30 13h3v1h-3zM35 13h1v1h-1zM40 13h1v1h-1zM5 14h2v1h-2zM8 14h3v1h-3zM13 14h3v1h-3zM17 14h1v1h-1zM19 14h4v1h-4zM25 14h1v1h-1zM27 14h1v1h-1zM29 14h1v1h-1zM31 14h2v1h-2zM34 14h7v1h-7zM8 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM16 15h1v1h-1zM19 15h3v1h-3zM23 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM29 15h2v1h-2zM32 15h2v1h-2zM35 15h1v1h-1zM40 15h1v1h-1zM4 16h1v1h-1zM8 16h3v1h-3zM12 16h1v1h-1zM15 16h1v1h-1zM17 16h7v1h-7zM27 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM33 16h3v1h-3zM37 16h1v1h-1zM39 16h1v1h-1zM4 17h4v1h-4zM11 17h1v1h-1zM14 17h2v1h-2zM18 17h1v1h-1zM23 17h4v1h-4zM28 17h3v1h-3zM32 17h1v1h-1zM34 17h1v1h-1zM37 17h4v1h-4zM8 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM16 18h2v1h-2zM19 18h1v1h-1zM21 18h2v1h-2zM26 18h1v1h-1zM28 18h3v1h-3zM33 18h4v1h-4zM38 18h3v1h-3zM6 19h1v1h-1zM8 19h2v1h-2zM11 19h2v1h-2zM15 19h1v1h-1zM17 19h2v1h-2zM20 19h2v1h-2zM23 19h3v1h-3zM29 19h1v1h-1zM31 19h2v1h-2zM35 19h1v1h-1zM7 20h1v1h-1zM9 20h2v1h-2zM12 20h1v1h-1zM15 20h2v1h-2zM19 20h1v1h-1zM21 20h4v1h-4zM26 20h2v1h-2zM29 20h1v1h-1zM31 20h1v1h-1zM33 20h2v1h-2zM37 20h1v1h-1zM39 20h1v1h-1zM5 21h1v1h-1zM8 21h1v1h-1zM11 21h1v1h-1zM13 21h3v1h-3zM18 21h2v1h-2zM22 21h1v1h-1zM25 21h1v1h-1zM28 21h2v1h-2zM31 21h2v1h-2zM34 21h1v1h-1zM39 21h2v1h-2zM5 22h4v1h-4zM10 22h2v1h-2zM13 22h1v1h-1zM15 22h1v1h-1zM18 22h1v1h-1zM20 22h2v1h-2zM26 22h2v1h-2zM30 22h1v1h-1zM34 22h1v1h-1zM37 22h4v1h-4zM4 23h1v1h-1zM8 23h1v1h-1zM12 23h1v1h-1zM15 23h4v1h-4zM23 23h1v1h-1zM25 23h2v1h-2zM28 23h4v1h-4zM33 23h3v1h-3zM37 23h1v1h-1zM40 23h1v1h-1zM5 24h3v1h-3zM9 24h2v1h-2zM13 24h2v1h-2zM18 24h2v1h-2zM21 24h2v1h-2zM24 24h1v1h-1zM26 24h4v1h-4zM32 24h4v1h-4zM40 24h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM12 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM19 25h2v1h-2zM22 25h1v1h-1zM24 25h2v1h-2zM27 25h2v1h-2zM30 25h1v1h-1zM34 25h1v1h-1zM37 25h1v1h-1zM39 25h2v1h-2zM5 26h1v1h-1zM7 26h2v1h-2zM10 26h1v1h-1zM12 26h1v1h-1zM15 26h2v1h-2zM19 26h1v1h-1zM21 26h1v1h-1zM23 26h1v1h-1zM26 26h2v1h-2zM29 26h1v1h-1zM32 26h2v1h-2zM36 26h2v1h-2zM39 26h2v1h-2zM4 27h2v1h-2zM8 27h2v1h-2zM11 27h2v1h-2zM14 27h4v1h-4zM19 27h1v1h-1zM21 27h1v1h-1zM23 27h1v1h-1zM33 27h2v1h-2zM39 27h2v1h-2zM5 28h2v1h-2zM8 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM16 28h1v1h-1zM18 28h3v1h-3zM22 28h2v1h-2zM26 28h1v1h-1zM28 28h1v1h-1zM31 28h1v1h-1zM33 28h1v1h-1zM36 28h2v1h-2zM39 28h1v1h-1zM5 29h5v1h-5zM12 29h10v1h-10zM23 29h1v1h-1zM25 29h5v1h-5zM31 29h1v1h-1zM33 29h1v1h-1zM36 29h2v1h-2zM40 29h1v1h-1zM4 30h1v1h-1zM6 30h7v1h-7zM17 30h2v1h-2zM24 30h2v1h-2zM27 30h2v1h-2zM34 30h1v1h-1zM40 30h1v1h-1zM5 31h4v1h-4zM15 31h1v1h-1zM18 31h1v1h-1zM20 31h1v1h-1zM23 31h2v1h-2zM28 31h2v1h-2zM31 31h1v1h-1zM34 31h1v1h-1zM36 31h2v1h-2zM39 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h2v1h-2zM15 32h2v1h-2zM18 32h3v1h-3zM22 32h1v1h-1zM24 32h1v1h-1zM27 32h4v1h-4zM32 32h5v1h-5zM38 32h3v1h-3zM12 33h2v1h-2zM15 33h4v1h-4zM20 33h4v1h-4zM25 33h2v1h-2zM28 33h1v1h-1zM32 33h1v1h-1zM36 33h1v1h-1zM39 33h2v1h-2zM4 34h7v1h-7zM14 34h4v1h-4zM19 34h3v1h-3zM25 34h1v1h-1zM28 34h2v1h-2zM31 34h2v1h-2zM34 34h1v1h-1zM36 34h1v1h-1zM38 34h3v1h-3zM4 35h1v1h-1zM10 35h1v1h-1zM12 35h2v1h-2zM17 35h3v1h-3zM21 35h4v1h-4zM26 35h7v1h-7zM36 35h1v1h-1zM39 35h2v1h-2zM4 36h1v1h-1zM6 36h3v1h-3zM10 36h1v1h-1zM12 36h2v1h-2zM15 36h7v1h-7zM23 36h1v1h-1zM29 36h1v1h-1zM32 36h6v1h-6zM39 36h1v1h-1zM4 37h1v1h-1zM6 37h3v1h-3zM10 37h1v1h-1zM13 37h2v1h-2zM17 37h2v1h-2zM20 37h3v1h-3zM24 37h4v1h-4zM29 37h3v1h-3zM33 37h1v1h-1zM35 37h2v1h-2zM38 37h3v1h-3zM4 38h1v1h-1zM6 38h3v1h-3zM10 38h1v1h-1zM12 38h3v1h-3zM16 38h2v1h-2zM19 38h1v1h-1zM21 38h1v1h-1zM23 38h1v1h-1zM25 38h1v1h-1zM29 38h5v1h-5zM35 38h3v1h-3zM40 38h1v1h-1zM4 39h1v1h-1zM10 39h1v1h-1zM14 39h5v1h-5zM22 39h1v1h-1zM24 39h1v1h-1zM26 39h2v1h-2zM29 39h1v1h-1zM32 39h2v1h-2zM35 39h1v1h-1zM39 39h1v1h-1zM4 40h7v1h-7zM14 40h2v1h-2zM17 40h6v1h-6zM24 40h2v1h-2zM29 40h1v1h-1zM31 40h3v1h-3zM35 40h3v1h-3zM39 40h2v1h-2z"/>
+          </svg>
+          <span class="badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#2AABEE"/><path fill="#fff" d="M18.4 7.2 16.6 16c-.1.6-.5.7-1 .4l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2-.1-.3-.4-.1l-6.5 4.1-2.8-.9c-.6-.2-.6-.6.1-.9l11-4.2c.5-.2.9.1.8.9z"/></svg>
+          </span>
+        </div>
+        <p class="qr-title" data-ru="Наведите камеру" data-kz="Камераны бағыттаңыз">Наведите камеру</p>
+        <p class="qr-sub" data-ru="Откроется анкета заведения в Telegram" data-kz="Telegram-да мекеме сауалнамасы ашылады">Откроется анкета заведения в Telegram</p>
+        <a class="qr-handle" href="https://t.me/resq_bot?start=partner">@resq_bot ?start=partner</a>
+        <p class="mock-tag" data-ru="Демо-ссылка — замените на реальный хэндл бота" data-kz="Демо-сілтеме — нақты бот хэндліне ауыстырыңыз">Демо-ссылка — замените на реальный хэндл бота</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY ============ -->
+  <section id="why">
+    <div class="wrap">
+      <p class="eyebrow" data-ru="Зачем это вам" data-kz="Сізге не үшін">Зачем это вам</p>
+      <h2 data-ru="Списание — это уже оплаченный убыток" data-kz="Есептен шығару — бұл төленіп қойған шығын">Списание — это уже оплаченный убыток</h2>
+      <p class="sub" data-ru="Продукты куплены, повар отработал, аренда уплачена. Единственное, чего не случилось, — продажи."
+         data-kz="Өнім сатып алынған, аспаз жұмыс істеген, жалдау төленген. Болмағаны біреу ғана — сатылым.">
+         Продукты куплены, повар отработал, аренда уплачена. Единственное, чего не случилось, — продажи.</p>
+      <div class="values">
+        <div class="value">
+          <div class="ico">💸</div>
+          <h3 data-ru="Ноль списаний" data-kz="Нөлдік есептен шығару">Ноль списаний</h3>
+          <p data-ru="То, что в конце вечера ушло бы в мусор, становится выручкой. Даже по сниженной цене это деньги вместо убытка."
+             data-kz="Кеш соңында қоқысқа кетер тағам табысқа айналады. Төмен бағамен де бұл — шығынның орнына ақша.">
+             То, что в конце вечера ушло бы в мусор, становится выручкой. Даже по сниженной цене это деньги вместо убытка.</p>
+        </div>
+        <div class="value">
+          <div class="ico">🚶</div>
+          <h3 data-ru="Новые гости на пороге" data-kz="Табалдырықта жаңа қонақтар">Новые гости на пороге</h3>
+          <p data-ru="Человек приходит за набором, видит витрину, меню и как у вас пахнет. Дальше работает уже ваше заведение, а не приложение."
+             data-kz="Адам жинақ үшін келеді, витринаны, мәзірді көреді, иісін сезеді. Әрі қарай қосымша емес, сіздің мекемеңіз жұмыс істейді.">
+             Человек приходит за набором, видит витрину, меню и как у вас пахнет. Дальше работает уже ваше заведение, а не приложение.</p>
+        </div>
+        <div class="value">
+          <div class="ico">🔌</div>
+          <h3 data-ru="Без интеграций и оборудования" data-kz="Интеграциясыз және жабдықсыз">Без интеграций и оборудования</h3>
+          <p data-ru="Ничего не нужно подключать к кассе. Набор публикуется в Telegram Mini App, гость показывает код на выдаче."
+             data-kz="Кассаға ештеңе қосудың қажеті жоқ. Жинақ Telegram Mini App-та жарияланады, қонақ беру кезінде кодты көрсетеді.">
+             Ничего не нужно подключать к кассе. Набор публикуется в Telegram Mini App, гость показывает код на выдаче.</p>
+        </div>
+        <div class="value">
+          <div class="ico">🎛️</div>
+          <h3 data-ru="Вы управляете всем" data-kz="Бәрін сіз басқарасыз">Вы управляете всем</h3>
+          <p data-ru="Цена, количество наборов и окно выдачи — ваши. Сегодня нечего отдавать? Просто не публикуете набор."
+             data-kz="Баға, жинақ саны және беру уақыты — сіздікі. Бүгін беретін ештеңе жоқ па? Жинақты жарияламайсыз, болды.">
+             Цена, количество наборов и окно выдачи — ваши. Сегодня нечего отдавать? Просто не публикуете набор.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW ============ -->
+  <section id="how" class="tight">
+    <div class="wrap">
+      <p class="eyebrow" data-ru="Как это работает" data-kz="Қалай жұмыс істейді">Как это работает</p>
+      <h2 data-ru="От заявки до первой выдачи" data-kz="Өтінімнен алғашқы беруге дейін">От заявки до первой выдачи</h2>
+      <p class="sub" data-ru="Обычно всё это укладывается в один вечер."
+         data-kz="Әдетте мұның бәрі бір кешке сыяды.">
+         Обычно всё это укладывается в один вечер.</p>
+      <div class="steps four">
+        <div class="step">
+          <div class="num">1</div>
+          <h3 data-ru="Заявка" data-kz="Өтінім">Заявка</h3>
+          <p data-ru="Пишете боту, отвечаете на несколько вопросов о заведении. Мы созваниваемся и заводим вас в системе."
+             data-kz="Ботқа жазасыз, мекеме туралы бірнеше сұраққа жауап бересіз. Біз хабарласып, сізді жүйеге енгіземіз.">
+             Пишете боту, отвечаете на несколько вопросов о заведении. Мы созваниваемся и заводим вас в системе.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3 data-ru="Публикуете набор" data-kz="Жинақты жариялайсыз">Публикуете набор</h3>
+          <p data-ru="Вечером открываете Mini App: сколько наборов, цена, во сколько забирать. Пара касаний в телефоне."
+             data-kz="Кешке Mini App-ты ашасыз: қанша жинақ, баға, қашан алу керек. Телефонда бірнеше түрту.">
+             Вечером открываете Mini App: сколько наборов, цена, во сколько забирать. Пара касаний в телефоне.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3 data-ru="Гость бронирует" data-kz="Қонақ брондайды">Гость бронирует</h3>
+          <p data-ru="Набор показывается людям поблизости. Вам приходит уведомление о каждой брони."
+             data-kz="Жинақ маңайдағы адамдарға көрсетіледі. Әр бронь туралы сізге хабарлама келеді.">
+             Набор показывается людям поблизости. Вам приходит уведомление о каждой брони.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3 data-ru="Выдача и оплата" data-kz="Беру және төлем">Выдача и оплата</h3>
+          <p data-ru="Гость показывает код из бота, кассир сверяет и отдаёт набор. Оплата на месте — как обычный заказ."
+             data-kz="Қонақ боттағы кодты көрсетеді, кассир тексеріп, жинақты береді. Төлем сол жерде — кәдімгі тапсырыс сияқты.">
+             Гость показывает код из бота, кассир сверяет и отдаёт набор. Оплата на месте — как обычный заказ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TERMS ============ -->
+  <section id="terms" class="tight">
+    <div class="wrap">
+      <p class="eyebrow" data-ru="Условия" data-kz="Шарттар">Условия</p>
+      <h2 data-ru="Никаких сюрпризов в счёте" data-kz="Шотта ешқандай сюрприз жоқ">Никаких сюрпризов в счёте</h2>
+      <p class="sub" data-ru="Мы зарабатываем только когда зарабатываете вы."
+         data-kz="Біз сіз тапқанда ғана табамыз.">
+         Мы зарабатываем только когда зарабатываете вы.</p>
+      <!-- Конкретные цифры комиссии намеренно не публикуются — обсуждаются при подключении. -->
+      <div class="terms">
+        <div class="term">
+          <b data-ru="Бесплатное подключение" data-kz="Тегін қосылу">Бесплатное подключение</b>
+          <span data-ru="Нет абонплаты, стартового взноса и платы за размещение."
+                data-kz="Абонемент те, бастапқы жарна да, орналастыру ақысы да жоқ.">
+                Нет абонплаты, стартового взноса и платы за размещение.</span>
+        </div>
+        <div class="term">
+          <b data-ru="Комиссия только с проданного" data-kz="Комиссия тек сатылғаннан">Комиссия только с проданного</b>
+          <span data-ru="Не продали набор — не платите ничего. Условия фиксируем при подключении."
+                data-kz="Жинақ сатылмаса — ештеңе төлемейсіз. Шарттарды қосылу кезінде бекітеміз.">
+                Не продали набор — не платите ничего. Условия фиксируем при подключении.</span>
+        </div>
+        <div class="term">
+          <b data-ru="Уйти можно в любой день" data-kz="Кез келген күні кетуге болады">Уйти можно в любой день</b>
+          <span data-ru="Ни контрактов с минимальным сроком, ни штрафов за паузу."
+                data-kz="Ең аз мерзімді келісімшарт та, үзіліс үшін айыппұл да жоқ.">
+                Ни контрактов с минимальным сроком, ни штрафов за паузу.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="tight">
+    <div class="wrap">
+      <p class="eyebrow" data-ru="Вопросы" data-kz="Сұрақтар">Вопросы</p>
+      <h2 data-ru="О чём обычно спрашивают" data-kz="Әдетте не сұрайды">О чём обычно спрашивают</h2>
+      <div class="faq" style="margin-top:36px">
+        <details>
+          <summary data-ru="Не начнут ли гости ждать скидку вместо полной цены?"
+                   data-kz="Қонақтар толық бағаның орнына жеңілдікті күте бастамай ма?">
+                   Не начнут ли гости ждать скидку вместо полной цены?</summary>
+          <p class="answer" data-ru="Наборы появляются в конце дня и в ограниченном количестве — тогда, когда полная продажа уже не случится. Состав — сюрприз: выбрать конкретное блюдо нельзя, прийти в обед за набором тоже. Поэтому набор не конкурирует с обычным заказом, а закрывает то, что иначе поехало бы в мусор."
+             data-kz="Жинақтар күннің соңында және шектеулі санда шығады — толық сатылым енді болмайтын кезде. Құрамы — сюрприз: нақты тағамды таңдау мүмкін емес, түсте келіп алу да мүмкін емес. Сондықтан жинақ кәдімгі тапсырыспен бәсекелеспейді, әйтпесе қоқысқа кетер тағамды жабады.">
+             Наборы появляются в конце дня и в ограниченном количестве — тогда, когда полная продажа уже не случится. Состав — сюрприз: выбрать конкретное блюдо нельзя, прийти в обед за набором тоже. Поэтому набор не конкурирует с обычным заказом, а закрывает то, что иначе поехало бы в мусор.</p>
+        </details>
+        <details>
+          <summary data-ru="Что вообще класть в набор?" data-kz="Жинаққа не салу керек?">Что вообще класть в набор?</summary>
+          <p class="answer" data-ru="То, что не доживёт до завтра, но полностью пригодно сейчас: выпечка дня, готовые блюда, салаты, овощи, молочка с близким сроком. Правило простое — то, что вы спокойно съели бы сами. Состав и цену набора вы определяете сами."
+             data-kz="Ертеңге жетпейтін, бірақ қазір толық жарамды тағам: күндізгі тоқаш, дайын тағамдар, салаттар, көкөніс, мерзімі жақын сүт өнімдері. Ереже қарапайым — өзіңіз жей алатын нәрсе. Жинақтың құрамы мен бағасын өзіңіз белгілейсіз.">
+             То, что не доживёт до завтра, но полностью пригодно сейчас: выпечка дня, готовые блюда, салаты, овощи, молочка с близким сроком. Правило простое — то, что вы спокойно съели бы сами. Состав и цену набора вы определяете сами.</p>
+        </details>
+        <details>
+          <summary data-ru="А если набор забронировали и не забрали?" data-kz="Жинақты брондап, алмай кетсе ше?">А если набор забронировали и не забрали?</summary>
+          <p class="answer" data-ru="Вы не в минусе: без Resq эта еда всё равно была бы списана. Бронь снимается автоматически после окончания окна выдачи, а гостям с повторными неявками мы ограничиваем бронирование."
+             data-kz="Сіз зиянда емессіз: Resq болмаса да бұл тағам есептен шығатын еді. Бронь беру уақыты біткен соң автоматты түрде алынады, ал бірнеше рет келмеген қонақтарға брондауды шектейміз.">
+             Вы не в минусе: без Resq эта еда всё равно была бы списана. Бронь снимается автоматически после окончания окна выдачи, а гостям с повторными неявками мы ограничиваем бронирование.</p>
+        </details>
+        <details>
+          <summary data-ru="Сколько это работы для персонала?" data-kz="Бұл қызметкерлерге қанша жұмыс?">Сколько это работы для персонала?</summary>
+          <p class="answer" data-ru="Опубликовать набор — пара касаний в телефоне, обычно это делает менеджер смены. На выдаче кассир сверяет код из бота и отдаёт пакет: те же действия, что и с обычным заказом на вынос."
+             data-kz="Жинақты жариялау — телефонда бірнеше түрту, әдетте мұны ауысым менеджері жасайды. Беру кезінде кассир боттағы кодты тексеріп, пакетті береді: кәдімгі алып кетуге арналған тапсырыстағыдай.">
+             Опубликовать набор — пара касаний в телефоне, обычно это делает менеджер смены. На выдаче кассир сверяет код из бота и отдаёт пакет: те же действия, что и с обычным заказом на вынос.</p>
+        </details>
+        <details>
+          <summary data-ru="Кто отвечает за качество и сроки годности?" data-kz="Сапа мен жарамдылық мерзіміне кім жауапты?">Кто отвечает за качество и сроки годности?</summary>
+          <p class="answer" data-ru="Заведение — ровно так же, как при обычной продаже. Resq не хранит, не готовит и не перевозит продукты: мы соединяем вас с гостем и передаём код брони. Просроченному в наборе не место."
+             data-kz="Мекеме — кәдімгі сатылымдағыдай. Resq өнімді сақтамайды, дайындамайды және тасымалдамайды: біз сізді қонақпен байланыстырып, бронь кодын береміз. Мерзімі өткен тағамға жинақта орын жоқ.">
+             Заведение — ровно так же, как при обычной продаже. Resq не хранит, не готовит и не перевозит продукты: мы соединяем вас с гостем и передаём код брони. Просроченному в наборе не место.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSER ============ -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="closer">
+        <div>
+          <h2 data-ru="Попробуйте один вечер" data-kz="Бір кеш байқап көріңіз">Попробуйте один вечер</h2>
+          <p data-ru="Опубликуйте первый набор завтра и посмотрите, что получится. Если не подойдёт — просто перестанете публиковать."
+             data-kz="Ертең алғашқы жинақты жариялап, не болатынын көріңіз. Ұнамаса — жариялауды тоқтатасыз, болды.">
+             Опубликуйте первый набор завтра и посмотрите, что получится. Если не подойдёт — просто перестанете публиковать.</p>
+        </div>
+        <a class="btn btn-primary" href="https://t.me/resq_bot?start=partner" data-ru="Подключить заведение" data-kz="Мекемені қосу">Подключить заведение</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap frow">
+    <span>© <span id="year">2026</span> Resq · <span data-ru="Алматы, Казахстан" data-kz="Алматы, Қазақстан">Алматы, Казахстан</span></span>
+    <span>
+      <a href="../index.html" data-ru="Для покупателей" data-kz="Сатып алушыларға">Для покупателей</a> ·
+      <a href="https://t.me/resq_bot?start=partner">@resq_bot</a> ·
+      <a href="mailto:partners@resq.kz">partners@resq.kz</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+/* Resq — KZ/RU switcher, shared by both landing pages.
+   Any element with data-kz + data-ru gets its text swapped.
+   The page's <title> comes from data-title-kz / data-title-ru on <body>. */
+(function () {
+  var STORE = 'resq-lang';
+  var DEFAULT = 'ru';
+
+  var buttons = document.querySelectorAll('.lang button');
+  var nodes = document.querySelectorAll('[data-ru][data-kz]');
+  var body = document.body;
+
+  function apply(lang) {
+    for (var i = 0; i < nodes.length; i++) {
+      var t = nodes[i].getAttribute('data-' + lang);
+      if (t !== null) nodes[i].textContent = t;
+    }
+    document.documentElement.lang = (lang === 'kz') ? 'kk' : 'ru';
+
+    var title = body.getAttribute('data-title-' + lang);
+    if (title) document.title = title;
+
+    for (var j = 0; j < buttons.length; j++) {
+      buttons[j].setAttribute('aria-pressed', String(buttons[j].dataset.lang === lang));
+    }
+    try { localStorage.setItem(STORE, lang); } catch (e) {}
+  }
+
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () { apply(this.dataset.lang); });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem(STORE); } catch (e) {}
+  apply(saved === 'kz' || saved === 'ru' ? saved : DEFAULT);
+
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
